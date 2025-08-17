@@ -1,6 +1,5 @@
 # UniverseMap
 Mapping the Universe with NASA's Space Hubble Telescope Images &amp; Data
-Here’s a template structure for mapping out the universe using a consistent system of naming and classification. This approach balances scientific rigor with extensibility for anomalies, galactic structures, and emergent discoveries (like those flagged by AnomalyMatch).
 
 # **🧭 UNIVERSAL MAPPING TEMPLATE**
 
