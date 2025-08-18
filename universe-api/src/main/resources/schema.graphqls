@@ -1,1 +1,136 @@
-# GraphQL schema
+# GraphQL queries
+query {
+  nodesInRegion(ra: 187.2, dec: 2.4, radius: 0.5) {
+    id
+    type
+    classification
+    ra
+    dec
+  }
+}
+# UniverseMap GraphQL Schema Reference
+
+type Universe {
+  id: ID!
+  epoch: String!
+  sectors: [Sector!]!
+}
+
+type Sector {
+  id: ID!
+  name: String!
+  supercluster: String
+  nodes: [Node!]!
+}
+
+type Node {
+  id: ID!
+  ra: Float!
+  dec: Float!
+  z: Float
+  galaxies: [Galaxy!]!
+  groups: [GalaxyGroup!]!
+  type: String!
+  classification: String
+  previewUrl: String
+  linkedProducts: [ObservationProduct]
+}
+
+type GalaxyGroup {
+  id: ID!
+  name: String
+  members: [Galaxy!]!
+}
+
+type Galaxy {
+  id: ID!
+  type: String
+  morphology: String
+  redshift: Float
+  massEstimate: Float
+  starCountEstimate: Int
+  anomalyFlags: [String]
+  tags: [String]
+  anomalies: [Anomaly!]!
+  substructures: [Substructure!]!
+}
+
+type Anomaly {
+  id: ID!
+  parentGalaxy: ID
+  detectedBy: String
+  classification: String
+  certainty: Float
+  linkedPapers: [String]
+}
+
+type Substructure {
+  id: ID!
+  type: String
+  hostId: ID
+  properties: JSON
+}
+
+scalar JSON
+
+type Query {
+  universe(id: ID!): Universe
+  sector(id: ID!): Sector
+  node(id: ID!): Node
+  galaxy(id: ID!): Galaxy
+  anomaly(id: ID!): Anomaly
+  searchGalaxies(type: String, morphology: String, tags: [String]): [Galaxy!]!
+}
+
+type Mutation {
+  addUniverse(input: UniverseInput!): Universe
+  addSector(input: SectorInput!): Sector
+  addNode(input: NodeInput!): Node
+  addGalaxy(input: GalaxyInput!): Galaxy
+  addAnomaly(input: AnomalyInput!): Anomaly
+  addSubstructure(input: SubstructureInput!): Substructure
+}
+
+input UniverseInput {
+  id: ID!
+  epoch: String!
+}
+
+input SectorInput {
+  id: ID!
+  name: String!
+  supercluster: String
+}
+
+input NodeInput {
+  id: ID!
+  ra: Float!
+  dec: Float!
+}
+
+input GalaxyInput {
+  id: ID!
+  type: String
+  morphology: String
+  redshift: Float
+  massEstimate: Float
+  starCountEstimate: Int
+  anomalyFlags: [String]
+  tags: [String]
+}
+
+input AnomalyInput {
+  id: ID!
+  parentGalaxy: ID
+  detectedBy: String
+  classification: String
+  certainty: Float
+  linkedPapers: [String]
+}
+
+input SubstructureInput {
+  id: ID!
+  type: String
+  hostId: ID
+  properties: JSON
+}

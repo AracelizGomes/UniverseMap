@@ -1,1 +1,2 @@
 # Python dependencies will go here
+astroquery>=0.4.6
